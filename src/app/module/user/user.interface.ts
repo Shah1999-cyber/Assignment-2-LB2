@@ -25,11 +25,11 @@ export type TUser = {
   age: number
   email: string
   isActive: 'active' | 'blocked'
-  hobbies: string[] | null
+  hobbies?: string[] | null
   address: TUserAddress
-  orders: TUserOrders[]
+  orders?: TUserOrders[]
 }
 
-export interface UserModel extends Model<TUser> {
-  isUserExists(id: string): Promise<TUser | null>
+export interface UserModel extends Model<TUser>{
+  isUserExists(id: string): Promise<TUser | null>;
 }

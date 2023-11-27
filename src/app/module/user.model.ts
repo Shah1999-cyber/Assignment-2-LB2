@@ -4,8 +4,10 @@ import {
   TUserName,
   TUserOrders,
   TUser,
-  UserModel,
+  UserModel
 } from './user/user.interface'
+import bcrypt from 'bcrypt'
+import config from '../config'
 
 const UserNameSchema = new Schema<TUserName>({
   firstName: {
@@ -50,7 +52,7 @@ const UserOrdersSchema = new Schema<TUserOrders>({
   },
 })
 
-const UserSchema = new Schema<TUser>({
+const UserSchema = new Schema<TUser, UserModel>({
   userId: {
     type: Number,
     required: true,
@@ -94,7 +96,27 @@ const UserSchema = new Schema<TUser>({
   },
   orders: {
     type: [UserOrdersSchema],
+    required: false,
   },
 })
 
-export const UsersModel = model<TUser, UserModel>('User', UserSchema)
+UserSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+})
+
+UserSchema.post('save', function () {
+//   console.log(this, 'post hook : we saved the data')
+})
+
+UserSchema.statics.isUserExists = async function (id: string){
+  const existingUser = await User.findOne({userId : id})
+  return existingUser;
+}
+
+export const User = model<TUser, UserModel>('User', UserSchema)
