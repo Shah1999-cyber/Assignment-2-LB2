@@ -2,7 +2,7 @@
   "name": "assignment-2",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "start:prod": "node ./dist/server.js",
