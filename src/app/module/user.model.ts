@@ -1,13 +1,13 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 import {
   TUserAddress,
   TUserName,
   TUserOrders,
   TUser,
-  UserModel
-} from './user/user.interface'
-import bcrypt from 'bcrypt'
-import config from '../config'
+  UserModel,
+} from './user/user.interface';
+import bcrypt from 'bcrypt';
+import config from '../config';
 
 const UserNameSchema = new Schema<TUserName>({
   firstName: {
@@ -24,7 +24,7 @@ const UserNameSchema = new Schema<TUserName>({
     minLength: [4, 'Last Name cannot be less then 8 character'],
     maxlength: [20, 'Last Name cannot be more then 20 character'],
   },
-})
+});
 
 const UserAddressSchema = new Schema<TUserAddress>({
   street: {
@@ -38,7 +38,7 @@ const UserAddressSchema = new Schema<TUserAddress>({
     type: String,
     required: [true, 'Please give a valid country'],
   },
-})
+});
 
 const UserOrdersSchema = new Schema<TUserOrders>({
   productName: {
@@ -50,7 +50,7 @@ const UserOrdersSchema = new Schema<TUserOrders>({
   quantity: {
     type: Number,
   },
-})
+});
 
 const UserSchema = new Schema<TUser, UserModel>({
   userId: {
@@ -66,8 +66,9 @@ const UserSchema = new Schema<TUser, UserModel>({
   password: {
     type: String,
     required: true,
-    maxlength: [40, 'Password must be less then 40 character'],
+    maxlength: [100, 'Password must be less then 40 character'],
     minlength: [6, 'password must be at least 6 characters'],
+    isSecure: true,
   },
   fullName: {
     type: UserNameSchema,
@@ -98,25 +99,42 @@ const UserSchema = new Schema<TUser, UserModel>({
     type: [UserOrdersSchema],
     required: false,
   },
-})
+});
 
 UserSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this
+  const user = this;
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
   );
   next();
-})
+});
 
-UserSchema.post('save', function () {
-//   console.log(this, 'post hook : we saved the data')
-})
+UserSchema.post('save', function (doc, next) {
+  doc.password = '';
 
-UserSchema.statics.isUserExists = async function (id: string){
-  const existingUser = await User.findOne({userId : id})
+  next();
+});
+
+UserSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+UserSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+UserSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
+UserSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await User.findOne({ userId: id });
   return existingUser;
-}
+};
 
-export const User = model<TUser, UserModel>('User', UserSchema)
+export const User = model<TUser, UserModel>('User', UserSchema);

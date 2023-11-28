@@ -1,22 +1,25 @@
-import express from 'express'
-import { userController } from './user.controller'
+import express from 'express';
+import { userController } from './user.controller';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/users', userController.createUser)
+router.post('/users', userController.createUser);
 
-router.get('/users', userController.getAllUsers)
+router.get('/users', userController.getAllUsers);
 
-router.get('/users/:userId', userController.getSingleUser)
+router.get('/users/:userId', userController.getSingleUser);
 
-router.put('/users/:userId', userController.UpdateSingleUser)
+router.put('/users/:userId', userController.UpdateSingleUser);
 
-router.delete('/users/:userId', userController.DeleteSingleUser)
+router.delete('/users/:userId', userController.DeleteSingleUser);
 
-router.put('/users/:userId/orders', userController.UpdateOrderOfSingleUser)
+router.put('/users/:userId/orders', userController.UpdateOrderOfSingleUser);
 
-router.get('/users/:userId/orders', userController.GetOrderOfSingleUser)
+router.get('/users/:userId/orders', userController.GetOrderOfSingleUser);
 
+router.get(
+  '/users/:userId/orders/total-price',
+  userController.GetOrderTotalPriceOfSingleUser,
+);
 
-
-export const userRoutes = router
+export const userRoutes = router;
