@@ -45,16 +45,16 @@ const UserOrdersSchema = new Schema<TUserOrders>({
     type: String,
   },
   price: {
-    type: Number,
+    type: String,
   },
   quantity: {
-    type: Number,
+    type: String,
   },
 });
 
 const UserSchema = new Schema<TUser, UserModel>({
   userId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
@@ -66,7 +66,6 @@ const UserSchema = new Schema<TUser, UserModel>({
   password: {
     type: String,
     required: true,
-    maxlength: [100, 'Password must be less then 40 character'],
     minlength: [6, 'password must be at least 6 characters'],
     isSecure: true,
   },
@@ -75,7 +74,7 @@ const UserSchema = new Schema<TUser, UserModel>({
     required: true,
   },
   age: {
-    type: Number,
+    type: String,
     required: true,
   },
   email: {
@@ -97,7 +96,7 @@ const UserSchema = new Schema<TUser, UserModel>({
   },
   orders: {
     type: [UserOrdersSchema],
-    required: false,
+    optional: true,
   },
 });
 

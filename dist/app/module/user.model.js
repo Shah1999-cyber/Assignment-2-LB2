@@ -50,15 +50,15 @@ const UserOrdersSchema = new mongoose_1.Schema({
         type: String,
     },
     price: {
-        type: Number,
+        type: String,
     },
     quantity: {
-        type: Number,
+        type: String,
     },
 });
 const UserSchema = new mongoose_1.Schema({
     userId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
     },
@@ -70,7 +70,6 @@ const UserSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true,
-        maxlength: [100, 'Password must be less then 40 character'],
         minlength: [6, 'password must be at least 6 characters'],
         isSecure: true,
     },
@@ -79,7 +78,7 @@ const UserSchema = new mongoose_1.Schema({
         required: true,
     },
     age: {
-        type: Number,
+        type: String,
         required: true,
     },
     email: {
@@ -101,7 +100,7 @@ const UserSchema = new mongoose_1.Schema({
     },
     orders: {
         type: [UserOrdersSchema],
-        required: false,
+        optional: true,
     },
 });
 UserSchema.pre('save', function (next) {

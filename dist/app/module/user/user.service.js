@@ -19,7 +19,7 @@ const createUserIntoDB = (userData) => __awaiter(void 0, void 0, void 0, functio
     return result;
 });
 const getAllUsersFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.User.find({});
+    const result = yield user_model_1.User.find({}, { username: 1, fullName: 1, age: 1, email: 1, address: 1 });
     return result;
 });
 const getSingleUserFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,7 +27,7 @@ const getSingleUserFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
     if (!exists) {
         throw new Error('User does not exists');
     }
-    const result = yield user_model_1.User.findOne({ userId: id }, { userId: 1, username: 1, fullName: 1, age: 1, email: 1, orders: 1 });
+    const result = yield user_model_1.User.findOne({ userId: id }, { userId: 1, username: 1, fullName: 1, age: 1, email: 1 });
     return result;
 });
 const DeleteSingleUserFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {

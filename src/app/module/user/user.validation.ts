@@ -21,19 +21,19 @@ const ZUserAddressSchema = z.object({
 
 const ZUserOrdersSchema = z.object({
   productName: z.string().trim(),
-  price: z.number(),
-  quantity: z.number(),
+  price: z.string(),
+  quantity: z.string(),
 });
 
 export const ZUserSchema = z.object({
-  userId: z.number(),
+  userId: z.string(),
   username: z.string().trim(),
   password: z.string().min(6).max(100),
   fullName: ZUserNameSchema,
-  age: z.number(),
+  age: z.string(),
   email: z.string().email(),
   isActive: z.enum(['active', 'blocked']).default('active'),
   hobbies: z.array(z.string()),
   address: ZUserAddressSchema,
-  orders: z.array(ZUserOrdersSchema),
+  orders: z.array(ZUserOrdersSchema).optional(),
 });

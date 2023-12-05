@@ -10,7 +10,7 @@ const createUserIntoDB = async (userData: TUser) => {
 };
 
 const getAllUsersFromDB = async () => {
-  const result = await User.find({});
+  const result = await User.find({},{username: 1, fullName: 1, age : 1, email: 1, address: 1});
   return result;
 };
 
@@ -19,7 +19,7 @@ const getSingleUserFromDB = async (id: string) => {
   if (!exists) {
     throw new Error('User does not exists');
   }
-  const result = await User.findOne({userId: id},{userId : 1, username : 1, fullName: 1, age : 1, email : 1, orders : 1});
+  const result = await User.findOne({userId: id},{userId : 1, username : 1, fullName: 1, age : 1, email : 1});
   return result;
 };
 const DeleteSingleUserFromDB = async (id: string) => {

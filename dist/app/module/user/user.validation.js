@@ -21,18 +21,18 @@ const ZUserAddressSchema = zod_1.z.object({
 });
 const ZUserOrdersSchema = zod_1.z.object({
     productName: zod_1.z.string().trim(),
-    price: zod_1.z.number(),
-    quantity: zod_1.z.number(),
+    price: zod_1.z.string(),
+    quantity: zod_1.z.string(),
 });
 exports.ZUserSchema = zod_1.z.object({
-    userId: zod_1.z.number(),
+    userId: zod_1.z.string(),
     username: zod_1.z.string().trim(),
     password: zod_1.z.string().min(6).max(100),
     fullName: ZUserNameSchema,
-    age: zod_1.z.number(),
+    age: zod_1.z.string(),
     email: zod_1.z.string().email(),
     isActive: zod_1.z.enum(['active', 'blocked']).default('active'),
     hobbies: zod_1.z.array(zod_1.z.string()),
     address: ZUserAddressSchema,
-    orders: zod_1.z.array(ZUserOrdersSchema),
+    orders: zod_1.z.array(ZUserOrdersSchema).optional(),
 });

@@ -13,16 +13,16 @@ export type TUserAddress = {
 
 export type TUserOrders = {
   productName: string;
-  price: number;
-  quantity: number;
+  price: string;
+  quantity: string;
 };
 
 export type TUser = {
-  userId: number;
+  userId: string;
   username: string;
   password: string;
   fullName: TUserName;
-  age: number;
+  age: string;
   email: string;
   isActive: 'active' | 'blocked';
   hobbies?: string[] | null;
