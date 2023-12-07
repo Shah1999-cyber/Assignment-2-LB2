@@ -45,10 +45,10 @@ const UserOrdersSchema = new Schema<TUserOrders>({
     type: String,
   },
   price: {
-    type: String,
+    type: Number,
   },
   quantity: {
-    type: String,
+    type: Number,
   },
 });
 

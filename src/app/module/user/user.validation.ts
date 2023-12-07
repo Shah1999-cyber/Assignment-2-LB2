@@ -17,8 +17,8 @@ const ZUserAddressSchema = z.object({
 
 const ZUserOrdersSchema = z.object({
   productName: z.string().trim(),
-  price: z.string(),
-  quantity: z.string(),
+  price: z.number(),
+  quantity: z.number(),
 });
 
 export const ZUserSchema = z.object({

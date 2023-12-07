@@ -50,10 +50,10 @@ const UserOrdersSchema = new mongoose_1.Schema({
         type: String,
     },
     price: {
-        type: String,
+        type: Number,
     },
     quantity: {
-        type: String,
+        type: Number,
     },
 });
 const UserSchema = new mongoose_1.Schema({

@@ -17,8 +17,8 @@ const ZUserAddressSchema = zod_1.z.object({
 });
 const ZUserOrdersSchema = zod_1.z.object({
     productName: zod_1.z.string().trim(),
-    price: zod_1.z.string(),
-    quantity: zod_1.z.string(),
+    price: zod_1.z.number(),
+    quantity: zod_1.z.number(),
 });
 exports.ZUserSchema = zod_1.z.object({
     userId: zod_1.z.number(),

@@ -13,8 +13,8 @@ export type TUserAddress = {
 
 export type TUserOrders = {
   productName: string;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
 };
 
 export type TUser = {
