@@ -54,19 +54,17 @@ const UserOrdersSchema = new Schema<TUserOrders>({
 
 const UserSchema = new Schema<TUser, UserModel>({
   userId: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: [6, 'password must be at least 6 characters'],
     isSecure: true,
   },
   fullName: {
@@ -74,7 +72,7 @@ const UserSchema = new Schema<TUser, UserModel>({
     required: true,
   },
   age: {
-    type: String,
+    type: Number,
     required: true,
   },
   email: {
@@ -83,9 +81,7 @@ const UserSchema = new Schema<TUser, UserModel>({
     unique: true,
   },
   isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-    default: 'active',
+    type: Boolean,
   },
   hobbies: {
     type: [String],

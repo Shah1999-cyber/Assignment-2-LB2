@@ -58,19 +58,17 @@ const UserOrdersSchema = new mongoose_1.Schema({
 });
 const UserSchema = new mongoose_1.Schema({
     userId: {
-        type: String,
+        type: Number,
         required: true,
         unique: true,
     },
     username: {
         type: String,
         required: true,
-        unique: true,
     },
     password: {
         type: String,
         required: true,
-        minlength: [6, 'password must be at least 6 characters'],
         isSecure: true,
     },
     fullName: {
@@ -78,7 +76,7 @@ const UserSchema = new mongoose_1.Schema({
         required: true,
     },
     age: {
-        type: String,
+        type: Number,
         required: true,
     },
     email: {
@@ -87,9 +85,7 @@ const UserSchema = new mongoose_1.Schema({
         unique: true,
     },
     isActive: {
-        type: String,
-        enum: ['active', 'blocked'],
-        default: 'active',
+        type: Boolean,
     },
     hobbies: {
         type: [String],

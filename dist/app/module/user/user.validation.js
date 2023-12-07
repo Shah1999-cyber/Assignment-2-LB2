@@ -5,13 +5,9 @@ const zod_1 = require("zod");
 const ZUserNameSchema = zod_1.z.object({
     firstName: zod_1.z
         .string()
-        .min(6, { message: 'Your first name must have more then 6 character' })
-        .max(20, { message: 'Your first name must have less then 20 character' })
         .trim(),
     lastName: zod_1.z
         .string()
-        .min(4, { message: 'Your last name must have more then 4 character' })
-        .max(20, { message: 'Your last name must have less then 20 character' })
         .trim(),
 });
 const ZUserAddressSchema = zod_1.z.object({
@@ -25,13 +21,13 @@ const ZUserOrdersSchema = zod_1.z.object({
     quantity: zod_1.z.string(),
 });
 exports.ZUserSchema = zod_1.z.object({
-    userId: zod_1.z.string(),
+    userId: zod_1.z.number(),
     username: zod_1.z.string().trim(),
     password: zod_1.z.string().min(6).max(100),
     fullName: ZUserNameSchema,
-    age: zod_1.z.string(),
+    age: zod_1.z.number(),
     email: zod_1.z.string().email(),
-    isActive: zod_1.z.enum(['active', 'blocked']).default('active'),
+    isActive: zod_1.z.boolean(),
     hobbies: zod_1.z.array(zod_1.z.string()),
     address: ZUserAddressSchema,
     orders: zod_1.z.array(ZUserOrdersSchema).optional(),

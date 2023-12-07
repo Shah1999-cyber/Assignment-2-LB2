@@ -18,13 +18,13 @@ export type TUserOrders = {
 };
 
 export type TUser = {
-  userId: string;
+  userId: number;
   username: string;
   password: string;
   fullName: TUserName;
-  age: string;
+  age: number;
   email: string;
-  isActive: 'active' | 'blocked';
+  isActive: boolean;
   hobbies?: string[] | null;
   address: TUserAddress;
   orders?: TUserOrders[];
