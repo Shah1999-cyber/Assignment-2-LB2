@@ -11,8 +11,8 @@ const ZUserNameSchema = z.object({
 
 const ZUserAddressSchema = z.object({
   street: z.string(),
-  city: z.string().min(1),
-  country: z.string().min(1).trim(),
+  city: z.string(),
+  country: z.string(),
 });
 
 const ZUserOrdersSchema = z.object({
@@ -24,10 +24,10 @@ const ZUserOrdersSchema = z.object({
 export const ZUserSchema = z.object({
   userId: z.number(),
   username: z.string().trim(),
-  password: z.string().min(6).max(100),
+  password: z.string(),
   fullName: ZUserNameSchema,
   age: z.number(),
-  email: z.string().email(),
+  email: z.string(),
   isActive: z.boolean(),
   hobbies: z.array(z.string()),
   address: ZUserAddressSchema,
